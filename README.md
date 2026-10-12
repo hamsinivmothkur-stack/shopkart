@@ -1,139 +1,134 @@
-# 🛒 ShopKart - Full-Stack E-Commerce Platform
+# 🛒 ShopKart — E-Commerce Web Application
 
-ShopKart is a modern, full-stack e-commerce web application featuring user authentication, product catalog browsing, wishlist management, cart operations, order processing, and payment integration.
+ShopKart is a full-stack e-commerce web application where users can browse products, view product details, add items to their shopping cart, and complete checkout using an online payment integration.
 
----
+## ✨ Features
 
-## 🚀 Features
+- **Product Listing:** Browse available products.
+- **Product Details:** View product descriptions, prices, categories, and stock.
+- **Shopping Cart:** Add products to the cart and manage quantities.
+- **User Authentication:** Register and log in securely.
+- **Checkout:** Enter shipping details and proceed to payment.
+- **Online Payments:** Razorpay payment integration.
+- **My Orders:** View previously placed orders.
 
-- **User Authentication**: Secure user registration and login with JWT and password hashing (bcrypt).
-- **Product Catalog**: Browse and explore products by category with real-time stock and pricing.
-- **Product Details**: Comprehensive product view with images, ratings, descriptions, and stock status.
-- **Wishlist**: Save favorite items for later viewing and quick access.
-- **Shopping Cart**: Add, remove, and adjust item quantities with instant subtotal and tax calculation.
-- **Checkout & Orders**: Place orders with address details and track past orders (`/my-orders`, `/order-details/:orderId`).
-- **Payment Gateway Integration**: Configured with Razorpay for handling payments.
-- **RESTful API**: Clean Express.js backend architecture with structured controllers, models, and routes.
-
----
+> Only keep the features above that are actually working in your project.
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React 19** + **Vite**
-- **React Router Dom (v7)**
-- **Axios** (API communication)
-- Vanilla CSS with responsive design
+- React
+- Vite
+- React Router
+- Axios
+- CSS
 
 ### Backend
-- **Node.js** & **Express.js**
-- **MongoDB** & **Mongoose** (ODM)
-- **JWT (JSON Web Tokens)** & **Cookie-Parser**
-- **Bcrypt** (password encryption)
-- **Razorpay SDK**
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT authentication
+- Razorpay
 
----
-
-## 📁 Repository Structure
+## 📁 Project Structure
 
 ```text
 Shopkart/
 ├── backend/
-│   ├── config/             # Database and configuration helpers
-│   ├── controllers/        # Route controllers (auth, cart, order, product, wishlist)
-│   ├── middlewares/        # Authentication & validation middleware
-│   ├── models/             # Mongoose schemas (Customer, Product, Cart, Order, etc.)
-│   ├── routes/             # Express API route definitions
-│   ├── utils/              # Helper utilities
-│   ├── .env.example        # Environment variable template
-│   ├── index.js            # Express server entry point
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── index.js
 │   └── package.json
-├── frontend/
-│   ├── public/             # Static public assets
-│   ├── src/
-│   │   ├── pages/          # App views (Home, Products, Cart, Checkout, Orders, Auth)
-│   │   ├── App.jsx         # Routes and core application setup
-│   │   ├── CartContext.jsx # Global Cart state provider
-│   │   └── main.jsx        # React entry point
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
+│
+└── client/
+    ├── public/
+    ├── src/
+    │   ├── pages/
+    │   ├── components/
+    │   └── App.jsx
+    ├── index.html
+    └── package.json
 ```
 
----
+*Your actual folders may differ; adjust this structure to match your repository.*
 
-## ⚙️ Getting Started & Installation
+## ⚙️ Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas cluster URI)
-- Git
+- Node.js and npm
+- A MongoDB Atlas account or another configured MongoDB instance
+- Razorpay test credentials, if testing payments
 
----
+### 1. Clone the repository
 
-### 1. Clone the Repository
 ```bash
-git clone https://github.com/hamsinivmothkur-stack/<repo-name>.git
+git clone YOUR_REPOSITORY_URL
 cd Shopkart
 ```
 
----
+### 2. Set up the backend
 
-### 2. Backend Setup
+```bash
+cd backend
+npm install
+```
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up environment variables:
-   - Create a `.env` file in the `backend/` directory based on `.env.example`:
-     ```env
-     PORT=5000
-     MONGO_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret_key
-     RAZORPAY_KEY_ID=your_razorpay_key_id
-     RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-     ```
-4. Start the backend server:
-   ```bash
-   node index.js
-   ```
-   *The backend will run on `http://localhost:5000` (or the configured `PORT`).*
+Create a `.env` file inside the backend folder:
 
----
+```env
+PORT=3000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+RAZORPAY_KEY_ID=your_razorpay_test_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_test_key_secret
+```
 
-### 3. Frontend Setup
+Use the environment variable names expected by your code. Never commit real credentials or passwords.
 
-1. In a new terminal window, navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-4. Open your browser and navigate to:
-   ```text
-   http://localhost:5173
-   ```
+Start the backend:
 
----
+```bash
+node index.js
+```
 
-## 🔒 Security Best Practices
-- **No secrets in version control**: All `.env` files are ignored in `.gitignore`.
-- Passwords are encrypted using salted bcrypt hashing.
-- Protected routes require valid JWT tokens.
+### 3. Set up the frontend
 
----
+Open another terminal:
 
-## 📄 License
-This project is open-source and available under the [ISC License](LICENSE).
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Open the local URL displayed by Vite, usually `http://localhost:5173`.
+
+## 🔐 Security
+
+- Sensitive configuration is stored in environment variables.
+- Protected backend routes use authentication middleware.
+- Payment verification is performed on the backend.
+
+## 💳 Payment Testing
+
+Razorpay test mode can be used to test the checkout flow without collecting real payments. Use test credentials and the supported test payment methods.
+
+## 🎯 Learning Outcomes
+
+This project helped me practise:
+
+- Building a React frontend.
+- Creating REST API endpoints using Express.js.
+- Connecting a backend to MongoDB using Mongoose.
+- Managing authentication and protected routes.
+- Implementing shopping cart and order management.
+- Integrating and verifying online payments.
+
+## 👩‍💻 Author
+
+**Hamsini V. Mothkur**
+
