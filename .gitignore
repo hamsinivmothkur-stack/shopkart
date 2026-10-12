@@ -1,0 +1,20 @@
+# Environment variables — never commit these
+.env
+*.env
+backend/.env
+
+# Dependencies
+node_modules/
+*/node_modules/
+client/
+
+# Build & Logs
+dist/
+*/dist/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
