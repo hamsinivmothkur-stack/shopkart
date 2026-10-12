@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 import "../shopkart.css";
 
@@ -18,8 +18,8 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/customers/register",
+      const response = await api.post(
+        "/customers/register",
         {
           fullName: fullName,
           email: email,

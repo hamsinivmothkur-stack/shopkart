@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./api";
 import "./shopkart.css";
 
 function Wishlist() {
@@ -13,12 +13,7 @@ function Wishlist() {
             setLoading(true);
             setError("");
 
-            const response = await axios.get(
-                "http://localhost:3000/wishlist",
-                {
-                    withCredentials: true
-                }
-            );
+            const response = await api.get("/wishlist");
 
             setWishlist(response.data.wishlist);
         } catch (error) {
@@ -34,12 +29,7 @@ function Wishlist() {
 
     const removeProduct = async (productId) => {
         try {
-            await axios.delete(
-                `http://localhost:3000/wishlist/${productId}`,
-                {
-                    withCredentials: true
-                }
-            );
+            await api.delete(`/wishlist/${productId}`);
 
             setWishlist(
                 wishlist.filter((product) => product._id !== productId)

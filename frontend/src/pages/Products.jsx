@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import "../shopkart.css";
 import { useCart } from "../CartContext";
 
@@ -19,7 +19,7 @@ function Products() {
   useEffect(() => {
   async function getProducts() {
     try {
-      const response = await axios.get("http://localhost:3000/products", {
+      const response = await api.get("/products", {
       params: {
       search: search,
       category: category,
@@ -40,12 +40,7 @@ function Products() {
 useEffect(() => {
   async function getWishlist() {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/wishlist",
-        {
-          withCredentials: true
-        }
-      );
+      const response = await api.get("/wishlist");
 
       setWishlist(response.data.wishlist);
     } catch (error) {
@@ -196,13 +191,7 @@ useEffect(() => {
         <button
     onClick={async () => {
         try {
-            await axios.post(
-                `http://localhost:3000/cart/${product._id}`,
-                {},
-                {
-                    withCredentials: true
-                }
-            );
+            await api.post(`/cart/${product._id}`, {});
 
             await fetchCart();
             setAddedProduct(product._id);
@@ -219,13 +208,7 @@ useEffect(() => {
     try {
       setSavingWishlist(product._id);
 
-      await axios.post(
-        `http://localhost:3000/wishlist/${product._id}`,
-        {},
-        {
-          withCredentials: true
-        }
-      );
+      await api.post(`/wishlist/${product._id}`, {});
 
       setWishlist([...wishlist, product]);
     } catch (error) {

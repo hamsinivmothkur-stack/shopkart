@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import "./../shopkart.css";
 
 function OrderConfirmation() {
@@ -12,10 +12,7 @@ function OrderConfirmation() {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:3000/orders/${orderId}`,
-                    { withCredentials: true }
-                );
+                const response = await api.get(`/orders/${orderId}`);
                 setOrder(response.data.order);
             } catch (err) {
                 setError(

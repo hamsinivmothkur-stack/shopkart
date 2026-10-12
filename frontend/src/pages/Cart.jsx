@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../CartContext";
-import axios from "axios";
+import api from "../api";
 import "./../shopkart.css";
 
 function Cart() {
@@ -8,15 +8,9 @@ function Cart() {
 
     const updateQuantity = async (productId, quantity) => {
         try {
-            await axios.patch(
-                `http://localhost:3000/cart/${productId}`,
-                {
-                    quantity: quantity
-                },
-                {
-                    withCredentials: true
-                }
-            );
+            await api.patch(`/cart/${productId}`, {
+                quantity: quantity
+            });
 
             await fetchCart();
         } catch (error) {
@@ -26,12 +20,7 @@ function Cart() {
 
     const removeProduct = async (productId) => {
         try {
-            await axios.delete(
-                `http://localhost:3000/cart/${productId}`,
-                {
-                    withCredentials: true
-                }
-            );
+            await api.delete(`/cart/${productId}`);
 
             await fetchCart();
         } catch (error) {

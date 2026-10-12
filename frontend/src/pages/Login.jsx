@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import "../shopkart.css";
 
@@ -17,10 +17,9 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/customers/login",
-        { email, password },
-        { withCredentials: true }
+      const response = await api.post(
+        "/customers/login",
+        { email, password }
       );
 
       setMessage(response.data.message || "Login successful!");

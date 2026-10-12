@@ -1,7 +1,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useCart } from "../CartContext";
 import "../shopkart.css";
 
@@ -13,10 +13,7 @@ function Home() {
   useEffect(() => {
     async function getCustomer() {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/customers/me",
-          { withCredentials: true }
-        );
+        const response = await api.get("/customers/me");
         setCustomer(response.data.customer || response.data);
       } catch (error) {
         navigate("/login");
@@ -28,11 +25,7 @@ function Home() {
 
   async function handleLogout() {
     try {
-      await axios.post(
-        "http://localhost:3000/customers/logout",
-        {},
-        { withCredentials: true }
-      );
+      await api.post("/customers/logout", {});
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);

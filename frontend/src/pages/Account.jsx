@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 import "../shopkart.css";
 
@@ -10,12 +10,7 @@ function Account() {
   useEffect(() => {
     async function getUser() {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/customers/me",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await api.get("/customers/me");
 
         setUser(response.data.customer);
       } catch (error) {

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useCart } from "../CartContext";
 import "./../shopkart.css";
 
@@ -80,11 +80,9 @@ function Checkout() {
         setPlacing(true);
 
         try {
-            const response = await axios.post(
-                "http://localhost:3000/orders/create-payment-order",
-                { shippingAddress: shipping },
-                { withCredentials: true }
-            );
+            const response = await api.post("/orders/create-payment-order", {
+                shippingAddress: shipping
+            });
 
             const {
                 razorpayOrderId,
@@ -104,16 +102,12 @@ function Checkout() {
 
                 handler: async function (paymentResponse) {
                     try {
-                        const verifyResponse = await axios.post(
-                            "http://localhost:3000/orders/verify-payment",
-                            {
-                                orderId,
-                                razorpay_order_id: paymentResponse.razorpay_order_id,
-                                razorpay_payment_id: paymentResponse.razorpay_payment_id,
-                                razorpay_signature: paymentResponse.razorpay_signature
-                            },
-                            { withCredentials: true }
-                        );
+                        const verifyResponse = await api.post("/orders/verify-payment", {
+                            orderId,
+                            razorpay_order_id: paymentResponse.razorpay_order_id,
+                            razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                            razorpay_signature: paymentResponse.razorpay_signature
+                        });
 
                         if (verifyResponse.data.success) {
                             clearCart();

@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import "./../shopkart.css";
 
 function OrderDetails() {
@@ -13,10 +13,7 @@ function OrderDetails() {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:3000/orders/${orderId}`,
-                    { withCredentials: true }
-                );
+                const response = await api.get(`/orders/${orderId}`);
                 setOrder(response.data.order);
             } catch (err) {
                 if (err.response?.status === 401) {

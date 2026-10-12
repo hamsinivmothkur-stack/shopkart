@@ -1,6 +1,6 @@
 import { Link, useParams} from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import "../shopkart.css";
 
 function ProductDetails() {
@@ -16,9 +16,7 @@ function ProductDetails() {
   useEffect(() => {
     async function getProduct() {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/products/${id}`
-        );
+        const response = await api.get(`/products/${id}`);
 
         setProduct(response.data.product);
       } catch (error) {

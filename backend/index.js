@@ -12,8 +12,19 @@ const orderRoutes = require("./routes/order.route");
 
 const app = express();
 
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    "http://localhost:5173"
+].filter(Boolean);
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import "./../shopkart.css";
 
 function MyOrders() {
@@ -12,10 +12,7 @@ function MyOrders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(
-                    "http://localhost:3000/orders",
-                    { withCredentials: true }
-                );
+                const response = await api.get("/orders");
                 setOrders(response.data.orders || []);
             } catch (err) {
                 if (err.response?.status === 401) {
